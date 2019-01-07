@@ -22,13 +22,21 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        res, start, n = 0, 0, len(s)
+        result = 0
+        start = 0
+        n = len(s)
         maps = {}
+
         for i in range(n):
-            start = max(start, maps.get(s[i], -1) + 1)
-            res = max(res, i - start + 1)
+
+            if maps.get(s[i]) is not None:
+                start = max(start, maps.get(s[i]) + 1)
+            else:
+                start = max(start, 0)
+            # print(s[i], maps.get(s[i]), start)
+            result = max(result, i - start + 1)
             maps[s[i]] = i
-        return res
+        return result
 
 
 def unique(s, i, j):
